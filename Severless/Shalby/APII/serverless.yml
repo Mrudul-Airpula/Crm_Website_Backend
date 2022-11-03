@@ -1,0 +1,405 @@
+# Welcome to Serverless!
+#
+# This file is the main config file for your service.
+# It's very minimal at this point and uses default values.
+# You can always add more config options for more control.
+# We've included some commented out config examples here.
+# Just uncomment any of them to get that config option.
+#
+# For full config options, check the docs:
+#    docs.serverless.com
+#
+# Happy Coding!
+
+service: allapis
+# app and org for use with dashboard.serverless.com
+#app: your-app-name
+#org: your-org-name
+
+# You can pin your service to only deploy with a specific Serverless version
+# Check out our docs for more details
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+
+# you can overwrite defaults here
+#  stage: dev
+#  region: us-east-1
+
+# you can add statements to the Lambda function's IAM Role here
+#  iam:
+#    role:
+#      statements:
+#        - Effect: "Allow"
+#          Action:
+#            - "s3:ListBucket"
+#          Resource: { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "ServerlessDeploymentBucket" } ] ]  }
+#        - Effect: "Allow"
+#          Action:
+#            - "s3:PutObject"
+#          Resource:
+#            Fn::Join:
+#              - ""
+#              - - "arn:aws:s3:::"
+#                - "Ref" : "ServerlessDeploymentBucket"
+#                - "/*"
+
+# you can define service wide environment variables here
+#  environment:
+#    variable1: value1
+
+# you can add packaging information here
+#package:
+#  patterns:
+#    - '!exclude-me.js'
+#    - '!exclude-me-dir/**'
+#    - include-me.js
+#    - include-me-dir/**
+
+functions:
+  Loginn:
+    handler: handler.Loginn
+    events:
+     - http:
+        method: post
+        path: Loginn
+  
+  signup:
+    handler: handler.signup
+    events:
+     - http:
+        method: post
+        path: signup
+    
+
+  # verifyotp:
+  #   handler: handler.verifyotp
+  #   events:
+  #    - http:
+  #       method: post
+  #       path: verifyotp
+    
+
+  # resend:
+  #   handler: handler.resend
+  #   events:
+  #    - http:
+  #       method: post
+  #       path: resend
+    
+
+  # getprofile:
+  #   handler: handler.getprofile
+  #   events:
+  #    - http:
+  #       method: post
+  #       path: getprofile
+  #   middleware:
+  #     pre:
+  #      - handler.middleware
+
+
+
+  # insertprofile:
+  #   handler: handler.insertprofile
+  #   events:
+  #    - http:
+  #       method: post
+  #       path: insertprofile
+  #   middleware:
+  #     pre:
+  #      - handler.middleware
+
+  # updateprofile:
+  #   handler: handler.updateprofile
+  #   events:
+  #    - http:
+  #       method: post
+  #       path: updateprofile
+  #   middleware:
+  #     pre:
+  #      - handler.middleware
+
+
+  # getuserprofilefilter:
+  #   handler: handler.getuserprofilefilter
+  #   events:
+  #    - http:
+  #       method: post
+  #       path: getuserprofilefilter
+  #   middleware:
+  #     pre:
+  #      - handler.middleware
+
+
+  # campaigncount:
+  #   handler: handler.campaigncount
+  #   events:
+  #    - http:
+  #       method: post
+  #       path: campaigncount
+  #   middleware:
+  #     pre:
+  #      - handler.middleware
+
+  # managercount:
+  #   handler: handler.managercount
+  #   events:
+  #    - http:
+  #       method: post
+  #       path: managercount
+  #   middleware:
+  #     pre:
+  #      - handler.middleware
+
+  # salespersoncount:
+  #   handler: handler.salespersoncount
+  #   events:
+  #    - http:
+  #       method: post
+  #       path: salespersoncount
+  #   middleware:
+  #     pre:
+  #      - handler.middleware
+
+
+  # leadsfunnel:
+  #   handler: handler.leadsfunnel
+  #   events:
+  #    - http:
+  #       method: post
+  #       path: leadsfunnel
+  #   middleware:
+  #     pre:
+  #      - handler.middleware
+
+
+  # prospectgrowth:
+  #   handler: handler.prospectgrowth
+  #   events:
+  #    - http:
+  #       method: post
+  #       path: prospectgrowth
+
+
+  # prospectprogress:
+  #   handler: handler.prospectprogress
+  #   events:
+  #    - http:
+  #       method: post
+  #       path: prospectprogress
+
+
+  # getleadfilter:
+  #   handler: handler.getleadfilter
+  #   events:
+  #    - http:
+  #       method: post
+  #       path: getleadfilter
+  #   middleware:
+  #     pre:
+  #      - handler.middleware
+
+
+  # getsinglelead:
+  #   handler: handler.getsinglelead
+  #   events:
+  #    - http:
+  #       method: post
+  #       path: getsinglelead
+  #   middleware:
+  #     pre:
+  #      - handler.middleware
+
+
+  # insertlead:
+  #   handler: handler.insertlead
+  #   events:
+  #    - http:
+  #       method: post
+  #       path: insertlead
+  #   middleware:
+  #     pre:
+  #      - handler.middleware
+
+  # updatelead:
+  #   handler: handler.updatelead
+  #   events:
+  #    - http:
+  #       method: post
+  #       path: updatelead
+  #   middleware:
+  #     pre:
+  #      - handler.middleware
+
+  # getcampaignfilter:
+  #   handler: handler.getcampaignfilter
+  #   events:
+  #    - http:
+  #       method: post
+  #       path: getcampaignfilter
+  #   middleware:
+  #     pre:
+  #      - handler.middleware
+
+
+  # getsinglecampaign:
+  #   handler: handler.getsinglecampaign
+  #   events:
+  #    - http:
+  #       method: post
+  #       path: getsinglecampaign
+  #   middleware:
+  #     pre:
+  #      - handler.middleware
+
+  # updatecampaign:
+  #   handler: handler.updatecampaign
+  #   events:
+  #    - http:
+  #       method: post
+  #       path: updatecampaign
+  #   middleware:
+  #     pre:
+  #      - handler.middleware
+
+
+  # getprospectfilter:
+  #   handler: handler.getprospectfilter
+  #   events:
+  #    - http:
+  #       method: post
+  #       path: getprospectfilter
+  #   middleware:
+  #     pre:
+  #      - handler.middleware    
+
+
+  # getsingletask:
+  #   handler: handler.getsingletask
+  #   events:
+  #    - http:
+  #       method: post
+  #       path: getsingletask 
+  #   middleware:
+  #     pre:
+  #      - handler.middleware    
+
+  addtask:
+    handler: handler.addtask
+    events:
+     - http:
+        method: post
+        path: addtask
+        cors: true
+  
+  # GetTaskListWithFilter:
+  #   handler: handler.GetTaskListWithFilter
+  #   events:
+  #    - http:
+  #       method: post
+  #       path: GetTaskListWithFilter 
+
+  # insertsingletask:
+  #   handler: handler.insertsingletask
+  #   events:
+  #    - http:
+  #       method: post
+  #       path: insertsingletask 
+  
+  # updatesignletask:
+  #   handler: handler.updatesignletask
+  #   events:
+  #    - http:
+  #       method: post
+  #       path: updatesignletask 
+
+
+  taskfetch:
+    handler: handler.taskfetch
+    events:
+     - http:
+        method: post
+        path: taskfetch
+        cors: true
+
+   InsertTask:
+    handler: handler.InsertTask
+    events:
+     - http:
+        method: post
+        path: InsertTask
+        cors: true
+
+  InsertTask1:
+    handler: handler.InsertTask1
+    events:
+     - http:
+        method: post
+        path: InsertTask1
+        cors: true
+  # GetTaskListWithFilter:
+  #   handler: handler.GetTaskListWithFilter
+  #   events:
+  #    - http:
+  #       method: post
+  #       path: GetTaskListWithFilter 
+    
+
+
+#    The following are a few example events you can configure
+#    NOTE: Please make sure to change your handler code to work with those events
+#    Check the event documentation for details
+#    events:
+#      - httpApi:
+#          path: /users/create
+#          method: get
+#      - websocket: $connect
+#      - s3: ${env:BUCKET}
+#      - schedule: rate(10 minutes)
+#      - sns: greeter-topic
+#      - stream: arn:aws:dynamodb:region:XXXXXX:table/foo/stream/1970-01-01T00:00:00.000
+#      - alexaSkill: amzn1.ask.skill.xx-xx-xx-xx
+#      - alexaSmartHome: amzn1.ask.skill.xx-xx-xx-xx
+#      - iot:
+#          sql: "SELECT * FROM 'some_topic'"
+#      - cloudwatchEvent:
+#          event:
+#            source:
+#              - "aws.ec2"
+#            detail-type:
+#              - "EC2 Instance State-change Notification"
+#            detail:
+#              state:
+#                - pending
+#      - cloudwatchLog: '/aws/lambda/hello'
+#      - cognitoUserPool:
+#          pool: MyUserPool
+#          trigger: PreSignUp
+#      - alb:
+#          listenerArn: arn:aws:elasticloadbalancing:us-east-1:XXXXXX:listener/app/my-load-balancer/50dc6c495c0c9188/
+#          priority: 1
+#          conditions:
+#            host: example.com
+#            path: /hello
+
+#    Define function environment variables here
+#    environment:
+#      variable2: value2
+
+# you can add CloudFormation resource templates here
+#resources:
+#  Resources:
+#    NewResource:
+#      Type: AWS::S3::Bucket
+#      Properties:
+#        BucketName: my-new-bucket
+#  Outputs:
+#     NewOutput:
+#       Description: "Description for the output"
+#       Value: "Some output value"
+plugins:
+ - serverless-offline
+ - serverless-middleware
