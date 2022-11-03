@@ -7,7 +7,7 @@ var con = mysql.createConnection({
   port:"3306",
   user: "SAZ",
   password: "password",
-  database: "crm",
+  database: "crm2",
 });
 // var con = mysql.createConnection({
 //   host: "localhost",
