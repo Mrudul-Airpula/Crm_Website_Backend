@@ -1,0 +1,2 @@
+Login:https://tkywgev296.execute-api.us-east-1.amazonaws.com/dev/Login
+SignUp:https://tkywgev296.execute-api.us-east-1.amazonaws.com/dev/signup
