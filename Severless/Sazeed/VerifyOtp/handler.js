@@ -511,3 +511,219 @@ module.exports.Leadlist = async (event) => {
   });
   return result;
 };
+
+module.exports.getTODO = async (event) => {
+  let request = JSON.parse(event.body);
+  let id=request.userid;
+  //let progress = request.progress
+  let sql ="select tblactivity.txtDescription,  tblleads.id,tblleads.txtFirstName,tblcampaign.txtCampaignName,tblactivitytype.txtActivitytype,tblprogresstype.txtProgresstype from tblactivity join tblprogresstype on tblactivity.refProgressStatus = tblprogresstype.id join tblactivitytype on tblactivitytype.id = tblactivity.refActivitytype join tblleadcampaignmap on tblactivity.refMapid = tblleadcampaignmap.id join tblcampaign on tblcampaign.id = tblleadcampaignmap.refCampaignId join tblleads on tblleads.id = tblleadcampaignmap.refLeadId where tblleads.id='"+id+"'group by txtActivitytype;";
+  let result = await new Promise((resolve, reject) => {
+    con.query(sql, function (err, result) {
+      if (err) throw err;
+      // console.log(JSON.stringify(result))
+      console.log("fetching");
+      if (result != "") {
+        const response = {
+          statusCode: 200,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": true,
+          },
+          body: JSON.stringify(result),
+        };
+        resolve(response);
+      } else {
+        const response = {
+          statusCode: 200,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": true,
+          },
+          body: "error",
+        };
+        resolve(response);
+        
+      }
+    });
+  });
+  return result;
+};
+
+module.exports.GetSingleLead = async (event) => {
+  let request = JSON.parse(event.body);
+  let id = request.id;
+  let sql =
+    "SELECT Salutation,txtFirstName FirstName,Middlename,txtLastName LastName,txtCompanyName CompanyName ,txtEmail Email,txtPhone Phone,mobile Mobile,txtAddress Address,city,state,pincode,leadowner,dtCreatedOn CreatedOn,activestatus,leadowner FROM crm2.tblleads where id='" +
+    id +
+    "';";
+  let result = await new Promise((resolve, reject) => {
+    con.query(sql, function (err, result) {
+      if (err) throw err;
+      // console.log(JSON.stringify(result))
+      console.log("fetching");
+      if (result != "") {
+        const response = {
+          statusCode: 200,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": true,
+          },
+          body: JSON.stringify(result),
+        };
+        resolve(response);
+      } else {
+        const response = {
+          statusCode: 200,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": true,
+          },
+          body: "error",
+        };
+        resolve(response);
+      }
+    });
+  });
+  return result;
+};
+
+module.exports.UpdateSingleLead = async (event) => {
+  let request = JSON.parse(event.body);
+  let id = request.id;
+  let Salutation = request.Salutation;
+  let firstname = request.firstname;
+  let Middlename = request.Middlename;
+  let lastname = request.lastname;
+  let CompanyName = request.CompanyName;
+  let Phone = request.Phone;
+  let mobile = request.mobile;
+  let city = request.city;
+  let email = request.email;
+  let state = request.state;
+  let address = request.address;
+  let pincode = request.pincode;
+  let leadowner = request.leadowner;
+  let activestatus = request.activestatus;
+  let CreatedOn = request.CreatedOn;
+
+  let sql = "select id from tblleads where id = " + id + " ;";
+  let sql1 =
+    "update tblleads set Salutation = '" +
+    Salutation +
+    "',txtFirstName = '" +
+    firstname +
+    "',Middlename = '" +
+    Middlename +
+    "',txtLastName ='" +
+    lastname +
+    "',txtCompanyName = '" +
+    CompanyName +
+    "' ,txtEmail = '" +
+    email +
+    "',txtPhone = '" +
+    Phone +
+    "',mobile = '" +
+    mobile +
+    "',txtAddress ='" +
+    address +
+    "',city = '" +
+    city +
+    "' ,state = '" +
+    state +
+    "' ,pincode = '" +
+    pincode +
+    "',leadowner = '" +
+    leadowner +
+    "',dtCreatedOn = '" +
+    CreatedOn +
+    "',activestatus = '" +
+    activestatus +
+    "' where id = '" +
+    id +
+    "' ;";
+  let result = await new Promise((resolve, reject) => {
+    con.query(sql, function (err, result) {
+      if (err) throw err;
+      if (result != "") {
+        con.query(sql1, function (err, result) {
+          const response = {
+            statusCode: 200,
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Access-Control-Allow-Credentials": true,
+            },
+            body: "Record Updated" + JSON.stringify(result),
+          };
+          resolve(response);
+        });
+      } else {
+        const response = {
+          statusCode: 200,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": true,
+          },
+          body: "Profile does not exist",
+        };
+        resolve(response);
+      }
+    });
+  });
+  return result;
+};
+
+module.exports.DeleteSingleLead = async (event) => {
+  let request = JSON.parse(event.body);
+  let id = request.id;
+  let sql0 = "SET FOREIGN_KEY_CHECKS=0"
+  let sql =
+    "DELETE FROM tblleads WHERE id = '"+id+"';";
+  let result = await new Promise((resolve, reject) => {
+    con.query(sql0, function (err, result) {
+      if (err) throw err;
+    })
+    con.query(sql, function (err, result) {
+      if (err) throw err;
+      // console.log(JSON.stringify(result))
+        const response = {
+          statusCode: 200,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": true,
+          },
+          body: "1 record deleted" + JSON.stringify(result)
+        };
+        resolve(response);
+      
+    });
+  });
+  return result;
+};
+
+module.exports.DeleteSingleCampaign = async (event) => {
+  let request = JSON.parse(event.body);
+  let id = request.id;
+  let sql0 = "SET FOREIGN_KEY_CHECKS=0"
+  let sql =
+    "DELETE FROM tblcampaign WHERE id = '"+id+"';";
+  let result = await new Promise((resolve, reject) => {
+    con.query(sql0, function (err, result) {
+      if (err) throw err;
+    })
+    con.query(sql, function (err, result) {
+      if (err) throw err;
+      // console.log(JSON.stringify(result))
+        const response = {
+          statusCode: 200,
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Credentials": true,
+          },
+          body: "1 record deleted" + JSON.stringify(result)
+        };
+        resolve(response);
+      
+    });
+  });
+  return result;
+};
