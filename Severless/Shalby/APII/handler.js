@@ -802,28 +802,28 @@ con.connect(function (err) {
 
 
 
-module.exports.taskfetch = async (event) => {
+// module.exports.taskfetch = async (event) => {
 
-  // let request = JSON.parse(event.body);
-  // let sql = "select tasktitle,campaign,Status,dtCreatedOn,LeadEmail,txtAssignedto owner from  tblactivity group by tasktitle;";
-  let sql = "select tasktitle,Status,dtCreatedOn,LeadEmail,Assignedto owner from  tblactivity group by tasktitle;";
-  let res = await new Promise((resolve, reject) => {
-    con.query(sql, function (err, result) {
-      if (err) throw err;
-      console.log(result)
-      const response = {
-        statusCode: 200,
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Credentials': true,
-        }, body: JSON.stringify(result)
-      };
-      resolve(response);
-    });
-  });
-  return res;
+//   // let request = JSON.parse(event.body);
+//   // let sql = "select tasktitle,campaign,Status,dtCreatedOn,LeadEmail,txtAssignedto owner from  tblactivity group by tasktitle;";
+//   let sql = "select tasktitle,Status,dtCreatedOn,LeadEmail,Assignedto owner from  tblactivity group by tasktitle;";
+//   let res = await new Promise((resolve, reject) => {
+//     con.query(sql, function (err, result) {
+//       if (err) throw err;
+//       console.log(result)
+//       const response = {
+//         statusCode: 200,
+//         headers: {
+//           'Access-Control-Allow-Origin': '*',
+//           'Access-Control-Allow-Credentials': true,
+//         }, body: JSON.stringify(result)
+//       };
+//       resolve(response);
+//     });
+//   });
+//   return res;
 
-};
+// };
 
 module.exports.addtask = async (event) => {
   let request = JSON.parse(event.body);
@@ -1024,4 +1024,27 @@ module.exports.InsertTask = async (event) => {
     });
   });
   return prom;
+};
+
+
+module.exports.taskfetch = async (event) => {
+  
+  let sql ="SELECT E.txtActivitytype Subjects,C.txtComments Comments,C.dtCreatedOn CreatedOn,A.txtEmail Lead_Email,D.txtProgresstype Statuses,F.txtFirstName Owners FROM tblleads A JOIN tblleadcampaignmap B ON A.id = B.refLeadId JOIN tblactivity C ON C.refMapid = B.id JOIN tblprogresstype D ON D.id = C.refProgressStatus JOIN tblactivitytype E ON E.id = C.refActivitytype JOIN tblusers F ON F.id = A.refCreatedBy";
+  // let sql = "SELECT E.txtActivitytype Subjects,C.txtComments Comments,C.dtCreatedOn CreatedOn, A.txtEmail Lead_Email, D.txtProgresstype Statuses FROM tblleads A JOIN tblleadcampaignmap B ON A.id = B.refLeadId JOIN tblactivity C ON C.refMapid = B.id JOIN tblprogresstype D ON D.id = C.refProgressStatus JOIN tblactivitytype E ON E.id = C.refActivitytype";
+  let res = await new Promise((resolve, reject) => {
+    con.query(sql, function (err, result) {
+      if (err) throw err;
+      console.log(result)
+      const response = {
+        statusCode: 200,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Credentials': true,
+        }, body: JSON.stringify(result)
+      };
+      resolve(response);
+    });
+  });
+  return res;
+
 };
