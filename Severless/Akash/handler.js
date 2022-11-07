@@ -112,7 +112,7 @@ module.exports.campaignwiseprospectcount = async (event) => {
 
 
 module.exports.leadsfunnel = async (event) => {
-  let sql = "select count(id) leadscount from tblleads union all SELECT count(d.txtConversionType) as NoOfLeads FROM tblleads a JOIN tblleadcampaignmap b ON a.id = b.refLeadId JOIN tblactivity c ON b.id = c.refMapid JOIN tblconversiontype d ON c.refConversionStatus = d.id where d.txtConversionType = 'Nurturing' or d.txtConversionType = 'Prospect' group by d.txtConversionType;"
+  let sql = "select count(id) Leads from tblleads union all SELECT count(d.txtConversionType) as NoOfLeads FROM tblleads a JOIN tblleadcampaignmap b ON a.id = b.refLeadId JOIN tblactivity c ON b.id = c.refMapid JOIN tblconversiontype d ON c.refConversionStatus = d.id where d.txtConversionType = 'Nurturing' or d.txtConversionType = 'Prospect' group by d.txtConversionType;"
   let res = await new Promise((resolve) => {
     con.query(sql, function (err, result) {
       if (err) throw err;
