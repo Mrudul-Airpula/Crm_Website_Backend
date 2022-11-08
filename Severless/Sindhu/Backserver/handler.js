@@ -1095,6 +1095,140 @@ module.exports.getprofile = async (event) => {
 //   return res;*/
 
 
+// module.exports.updateprofile = async (event) => {
+//   let request = JSON.parse(event.body);
+//   let FirstName = request.FirstName;
+//   let LastName = request.LastName;
+//   let Email = request.Email;
+//   let Address = request.Address;
+//   let Dob = request.Dob;
+//   let Password = request.Password;
+//   let ConfirmPassword = request.ConfirmPassword;
+//   let id = request.id;
+//   let sql = "select id,txtaddress,txtdob,txtFirstName,txtLastName,txtEmail,txtPassword from tblusers where txtEmail= '" + Email + "'";
+//   let sqlupdate = "update tblusers set txtFirstName='" + FirstName + "', txtLastName='" + LastName + "', txtdob='" + Dob + "', txtaddress='" + Address + "', txtPassword='" + Password + "',txtEmail='" + Email + "' where id='" + id + "'";
+
+
+
+//   let result = await new Promise((resolve, reject) => {
+
+//     if (FirstName == "") {
+//       const response = {
+//         statusCode: 200,
+//         headers: {
+//           'Access-Control-Allow-Origin': '*',
+//           'Access-Control-Allow-Credentials': true,
+//         }, body: "Firstname is mandatory"
+//       };
+//       resolve(response)
+//       return
+//     }
+//     if (Email == "") {
+//       const response = {
+//         statusCode: 200,
+//         headers: {
+//           'Access-Control-Allow-Origin': '*',
+//           'Access-Control-Allow-Credentials': true,
+//         }, body: "Email is mandatory"
+//       };
+//       resolve(response)
+//       return
+//     }
+//     if (Password == "") {
+//       const response = {
+//         statusCode: 200,
+//         headers: {
+//           'Access-Control-Allow-Origin': '*',
+//           'Access-Control-Allow-Credentials': true,
+//         }, body: "Password is mandatory"
+//       };
+//       resolve(response)
+//       return
+//     }
+//     if (ConfirmPassword == "") {
+//       const response = {
+//         statusCode: 200,
+//         headers: {
+//           'Access-Control-Allow-Origin': '*',
+//           'Access-Control-Allow-Credentials': true,
+//         }, body: "ConfirmPassword is mandatory"
+//       };
+//       resolve(response)
+//       return
+//     }
+//     if (Dob == "") {
+//       const response = {
+//         statusCode: 200,
+//         headers: {
+//           'Access-Control-Allow-Origin': '*',
+//           'Access-Control-Allow-Credentials': true,
+//         }, body: "Dob is mandatory"
+//       };
+//       resolve(response)
+//       return
+//     }
+//     if (Address == "") {
+//       const response = {
+//         statusCode: 200,
+//         headers: {
+//           'Access-Control-Allow-Origin': '*',
+//           'Access-Control-Allow-Credentials': true,
+//         }, body: "Address is mandatory"
+//       };
+//       resolve(response)
+//       return
+//     }
+
+//     if (ConfirmPassword != Password) {
+//       const response = {
+//         statusCode: 200,
+//         headers: {
+//           'Access-Control-Allow-Origin': '*',
+//           'Access-Control-Allow-Credentials': true,
+//         }, body: "ConfirmPassword not match"
+//       };
+//       resolve(response)
+//       return
+//     }
+
+//     con.query(sql, function (err, result) {
+//       if (err) throw err;
+//       console.log("result" + JSON.stringify(result));
+
+//       if (result != "") {
+//         const response = {
+//           statusCode: 200,
+//           headers: {
+//             'Access-Control-Allow-Origin': '*',
+//             'Access-Control-Allow-Credentials': true,
+//           }, body: "Email already exist" 
+//         };
+
+//         resolve(response)
+//       }
+//       else {
+//         con.query(sqlupdate, function (err, result) {
+//           if (err) throw err;
+//           console.log("Profile Updated!" + JSON.stringify(result));
+//           const response = {
+//             statusCode: 200,
+//             headers: {
+//               'Access-Control-Allow-Origin': '*',
+//               'Access-Control-Allow-Credentials': true,
+//             }, body: "Profile Updated!" 
+//           };
+
+//           resolve(response);
+//         })
+//       }
+//     });
+//   }
+//   )
+//   console.log("last line ");
+//   return result;
+
+// };
+
 module.exports.updateprofile = async (event) => {
   let request = JSON.parse(event.body);
   let FirstName = request.FirstName;
@@ -1105,7 +1239,7 @@ module.exports.updateprofile = async (event) => {
   let Password = request.Password;
   let ConfirmPassword = request.ConfirmPassword;
   let id = request.id;
-  let sql = "select id,txtaddress,txtdob,txtFirstName,txtLastName,txtEmail,txtPassword from tblusers where txtEmail= '" + Email + "'";
+  let sql = "select id,txtaddress,txtdob,txtFirstName,txtLastName,txtEmail,txtPassword from tblusers ";
   let sqlupdate = "update tblusers set txtFirstName='" + FirstName + "', txtLastName='" + LastName + "', txtdob='" + Dob + "', txtaddress='" + Address + "', txtPassword='" + Password + "',txtEmail='" + Email + "' where id='" + id + "'";
 
 
@@ -1145,17 +1279,17 @@ module.exports.updateprofile = async (event) => {
       resolve(response)
       return
     }
-    if (ConfirmPassword == "") {
-      const response = {
-        statusCode: 200,
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Credentials': true,
-        }, body: "ConfirmPassword is mandatory"
-      };
-      resolve(response)
-      return
-    }
+    // if (ConfirmPassword == "") {
+    //   const response = {
+    //     statusCode: 200,
+    //     headers: {
+    //       'Access-Control-Allow-Origin': '*',
+    //       'Access-Control-Allow-Credentials': true,
+    //     }, body: "ConfirmPassword is mandatory"
+    //   };
+    //   resolve(response)
+    //   return
+    // }
     if (Dob == "") {
       const response = {
         statusCode: 200,
@@ -1179,34 +1313,34 @@ module.exports.updateprofile = async (event) => {
       return
     }
 
-    if (ConfirmPassword != Password) {
-      const response = {
-        statusCode: 200,
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Credentials': true,
-        }, body: "ConfirmPassword not match"
-      };
-      resolve(response)
-      return
-    }
+    // if (ConfirmPassword != Password) {
+    //   const response = {
+    //     statusCode: 200,
+    //     headers: {
+    //       'Access-Control-Allow-Origin': '*',
+    //       'Access-Control-Allow-Credentials': true,
+    //     }, body: "ConfirmPassword not match"
+    //   };
+    //   resolve(response)
+    //   return
+    // }
 
     con.query(sql, function (err, result) {
       if (err) throw err;
       console.log("result" + JSON.stringify(result));
 
-      if (result != "") {
-        const response = {
-          statusCode: 200,
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Credentials': true,
-          }, body: "Email already exist" 
-        };
+      // if (result != "") {
+      //   const response = {
+      //     statusCode: 200,
+      //     headers: {
+      //       'Access-Control-Allow-Origin': '*',
+      //       'Access-Control-Allow-Credentials': true,
+      //     }, body: "Email already exist" 
+      //   };
 
-        resolve(response)
-      }
-      else {
+      //   resolve(response)
+      // }
+      if (result != "") {
         con.query(sqlupdate, function (err, result) {
           if (err) throw err;
           console.log("Profile Updated!" + JSON.stringify(result));
@@ -1228,139 +1362,3 @@ module.exports.updateprofile = async (event) => {
   return result;
 
 };
-
-// module.exports.updateprofile = async (event) => {
-// let request = JSON.parse(event.body);
-// let FirstName = request.FirstName;
-// let LastName = request.LastName;
-// let Email = request.Email;
-// let Address = request.Address;
-// let Dob = request.Dob;
-// let Password = request.Password;
-// let ConfirmPassword = request.ConfirmPassword;
-// let id = request.id;
-// let sql = "select id,txtaddress,txtdob,txtFirstName,txtLastName,txtEmail,txtPassword from tblusers where txtEmail= '" + Email + "'";
-// let sqlupdate = "update tblusers set txtFirstName='" + FirstName + "', txtLastName='" + LastName + "', txtdob='" + Dob + "', txtaddress='" + Address + "', txtPassword='" + Password + "',txtEmail='" + Email + "' where id='" + id + "'";
-
-
-
-// let result = await new Promise((resolve, reject) => {
-
-//   if (FirstName == "") {
-//     const response = {
-//       statusCode: 200,
-//       headers: {
-//         'Access-Control-Allow-Origin': '*',
-//         'Access-Control-Allow-Credentials': true,
-//       }, body: "firstname is mandatory"
-//     };
-//     resolve(response)
-//     return
-//   }
-//   else if (Email == "") {
-//     const response = {
-//       statusCode: 200,
-//       headers: {
-//         'Access-Control-Allow-Origin': '*',
-//         'Access-Control-Allow-Credentials': true,
-//       }, body: "email is mandatory"
-//     };
-//     resolve(response)
-//     return
-//   }
-//   else if (Password == "") {
-//     const response = {
-//       statusCode: 200,
-//       headers: {
-//         'Access-Control-Allow-Origin': '*',
-//         'Access-Control-Allow-Credentials': true,
-//       }, body: "password is mandatory"
-//     };
-//     resolve(response)
-//     return
-//   }
-//   else if (ConfirmPassword == "") {
-//     const response = {
-//       statusCode: 200,
-//       headers: {
-//         'Access-Control-Allow-Origin': '*',
-//         'Access-Control-Allow-Credentials': true,
-//       }, body: "ConfirmPassword is mandatory"
-//     };
-//     resolve(response)
-//     return
-//   }
-//   else if (Dob == "") {
-//     const response = {
-//       statusCode: 200,
-//       headers: {
-//         'Access-Control-Allow-Origin': '*',
-//         'Access-Control-Allow-Credentials': true,
-//       }, body: "Dob is mandatory"
-//     };
-//     resolve(response)
-//     return
-//   }
-//   else if (Address == "") {
-//     const response = {
-//       statusCode: 200,
-//       headers: {
-//         'Access-Control-Allow-Origin': '*',
-//         'Access-Control-Allow-Credentials': true,
-//       }, body: "Address is mandatory"
-//     };
-//     resolve(response)
-//     return
-//   }
-
-//   else if (ConfirmPassword != Password) {
-//     const response = {
-//       statusCode: 200,
-//       headers: {
-//         'Access-Control-Allow-Origin': '*',
-//         'Access-Control-Allow-Credentials': true,
-//       }, body: "ConfirmPassword not match"
-//     };
-//     resolve(response)
-//     return
-//   }
-
-//   else {
-//     con.query(sql, function (err, result) {
-//     if (err) throw err;
-//     console.log("result" + JSON.stringify(result));
-
-//     if (result != "") {
-//       const response = {
-//         statusCode: 200,
-//         headers: {
-//           'Access-Control-Allow-Origin': '*',
-//           'Access-Control-Allow-Credentials': true,
-//         }, body: "email already exists"
-//       };
-
-//       resolve(response)
-//     }
-//     //});
-//     else {
-//       con.query(sqlupdate, function (err, result) {
-//         if (err) throw err;
-//         //console.log("user updated" + JSON.stringify(result));
-//         const response = {
-//           statusCode: 200,
-//           headers: {
-//             'Access-Control-Allow-Origin': '*',
-//             'Access-Control-Allow-Credentials': true,
-//           }, body: "Profile Updated!"
-//         };
-
-//         resolve(response);
-//       })
-//     }
-//   });}
-// }
-// )
-// console.log("last line ");
-// return result;
-
-// };
