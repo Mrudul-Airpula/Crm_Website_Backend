@@ -72,7 +72,7 @@ module.exports.updateuserliststatus = async (event) => {
 
 
 module.exports.prospectprogress = async (event) => {
-  let sql = "SELECT COUNT(D.id) Leads FROM tblusers A JOIN tbljobtitle B ON A.refJobTitle = B.id JOIN tblleads D ON D.refCreatedBy = A.id JOIN tblleadcampaignmap E ON E.refLeadId = D.id JOIN tblactivity F ON F.refMapid = E.id JOIN tblconversiontype G ON G.id = F.refConversionStatus WHERE B.txtJobTitle LIKE '%Manager' UNION ALL SELECT COUNT(G.txtConversionType) leadstopros FROM tblusers A JOIN tbljobtitle B ON A.refJobTitle = B.id JOIN tblleads D ON D.refCreatedBy = A.id JOIN tblleadcampaignmap E ON E.refLeadId = D.id JOIN tblactivity F ON F.refMapid = E.id JOIN tblconversiontype G ON G.id = F.refConversionStatus WHERE B.txtJobTitle LIKE '%Manager' AND G.txtConversionType = 'Prospect';"
+  let sql = "SELECT COUNT(id) Leads FROM tblleads UNION ALL SELECT COUNT(G.txtConversionType) leadstopros FROM tblusers A JOIN tbljobtitle B ON A.refJobTitle = B.id JOIN tblleads D ON D.refCreatedBy = A.id JOIN tblleadcampaignmap E ON E.refLeadId = D.id JOIN tblactivity F ON F.refMapid = E.id JOIN tblconversiontype G ON G.id = F.refConversionStatus WHERE B.txtJobTitle LIKE '%Manager' AND G.txtConversionType = 'Prospect';"
   let result = await new Promise((resolve) => {
     con.query(sql, function (err, result) {
       if (err) throw err;
